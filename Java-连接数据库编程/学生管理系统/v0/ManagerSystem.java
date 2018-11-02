@@ -1,12 +1,14 @@
 /*
+ * 功能点：
  * 从数据库读入数据
  * 目前JDBC有两种驱动一个是cj.dricver一个是driver
  * 这两个驱动是有时区之差的
+ * UI界面，建立滚动表格
  * 
  */
 
 
-package 学生管理系统;
+package 学生管理系统.v0;
 
 import java.awt.*;
 import java.util.Vector;
@@ -21,7 +23,7 @@ public class ManagerSystem extends JFrame{
 	private static final long serialVersionUID = 1L;
 	
 	//定义组件
-	JPanel jp1,jp2,jp3;
+	JPanel jp1,jp3;
 	JLabel jl;
 	JTextField jtf;
 	JButton jb1,jb2,jb3,jb4;
@@ -57,7 +59,6 @@ public class ManagerSystem extends JFrame{
 		jp1.add(jb1);
 		
 		
-		jp2=new JPanel();
 		columnName=new Vector();
 		//设置列名
 		columnName.add("学号");
@@ -120,9 +121,8 @@ public class ManagerSystem extends JFrame{
 		
 		jt=new JTable(rowData,columnName);
 		jsp=new JScrollPane(jt);
-		this.add(jp2,BorderLayout.CENTER);
+		this.add(jsp,BorderLayout.CENTER);
 		//把jsp放入在jframe
-		jp2.add(jsp);
 		jsp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		
 		

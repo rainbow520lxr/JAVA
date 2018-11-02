@@ -11,7 +11,7 @@ public class Test {
 		//创建连接
 		Connection conn=null;
 		String sql=null;
-		String url="jdbc:mysql://localhost:3306/lxr?userUnicode=true&characterEncoding=UTF-8&serverTimeZone=UTC";
+		String url="jdbc:mysql://localhost:3306/lxr?userUnicode=true&characterEncoding=UTF-8&serverTimeZone=GMT";
 		String username="root";
 		String password="lixin2008";
 		

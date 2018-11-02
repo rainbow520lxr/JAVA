@@ -1,0 +1,27 @@
+对于jdbc的使用：
+1.加载驱动器
+2.使用驱动器建立连接
+3.建立连接
+4.使用连接初始化SQL语句处理器preparedStatement，将SQL语句载入
+5.执行ps语句，ps.excute
+6.定义一个resultset变量，结果集
+7.rs=ps.excute执行结果传递给结果集
+8.返回的是个表时，rs是一个结构体指针，初始时rs指向表的第一行
+9.使用rs.next()函数，自动移动指针
+10.使用rs.get数据类型（列数index）
+
+对于向量的使用：
+1.Vector column=new Vector()创建列向量
+column.add("第一列")
+2.Vector rowDate=new Vector()创建列向量
+3.Vector Hang=new Vector()创建列向量
+4. 想创建一个行向量集合，再创建一个Hang向量，放入这个行向量集合里面
+
+
+对于ScrollPanel 和Table的使用：
+1.容器ScrollPanel容器，滚动面板，将表格放入到面板中
+2.JTable表格，表格类采用JTable(rowdata,column)子类来创建
+rowdata指的是行向量数据的集合，column代表列名向量
+参数是两个向量，一个向量集合，一个向量
+
+

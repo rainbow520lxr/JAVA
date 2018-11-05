@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -134,14 +135,27 @@ public class StuAddDialoge extends JDialog implements ActionListener{
 			String sql="INSERT INTO `lxr`.`stu` (`stuId`, `stuName`, `stuSex`, `stuAge`, `stuJg`, `stuDept`) VALUES ('"+stuId+"', '"+stuName+"', '"+stuSex+"', '"+stuAge+"', '"+stuJg+"', '"+stuDept+"')";
 			System.out.println(sql);
 			StuModle sm=new StuModle();
-			sm.newStu(sql);
-			this.hide();
+			if(!sm.newStu(sql)) {
+				
+				//提示
+				JOptionPane.showMessageDialog(this, "添加失败！");
+				
+			}else if(sm.newStu(sql)) {
+				
+				JOptionPane.showMessageDialog(this, "添加成功！");
+				
+			}
+			
+			
+			//关闭对话框
+			this.dispose();
 			}
 			
 			
 		}else if(e.getSource()==jb2) {
 			
-			this.hide();
+			//关闭对话框
+			this.dispose();
 			
 		}
 		

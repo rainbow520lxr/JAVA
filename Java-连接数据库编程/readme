@@ -39,8 +39,13 @@ ps.setString(4,jtf.getText())
 ps.setString(5,jtf.getText())
 ps.setString(6,jtf.getText())
 
+ps的赋值
+sql="update stu set stuName=?,stuDept=? where stuId=?";
 
+ps.setString(1,jtf.getText())
 
+字符串数组
+String[] paras={jtf1.getText(),jtf2.getText()}
 
 
 

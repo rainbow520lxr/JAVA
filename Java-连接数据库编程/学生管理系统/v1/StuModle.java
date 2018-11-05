@@ -47,20 +47,27 @@ public class StuModle extends AbstractTableModel{
 	
 	
 	//根据sql语句,添加删除修改
-	public void newStu(String sql) {
+	public Boolean newStu(String sql) {
+		Boolean flag=true;
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn=(Connection)DriverManager.getConnection(url,username,passwd);
 			ps=conn.prepareStatement(sql);
+				
 			//rs是一个指针指向第一行，在java语言中rs.next()自动指针移动
 			int rs=ps.executeUpdate();
 			if(rs!=-1) {
 				System.out.println("操作成功!");
+				flag=false;
 			}
 			
 			}catch (Exception e) {
 				// TODO: handle exception
+				
+				flag=false;
+				
+				
 			}finally {
 				 
 				try {
@@ -70,10 +77,13 @@ public class StuModle extends AbstractTableModel{
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					
+					
 				}
 				
 			}
 	
+		return flag;
 	}
 	
 	public void delStu() {

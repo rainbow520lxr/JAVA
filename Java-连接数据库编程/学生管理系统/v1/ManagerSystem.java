@@ -29,12 +29,13 @@ public class ManagerSystem extends JFrame implements ActionListener{
 	private JPanel jp1,jp3;
 	private JLabel jl;
 	private JTextField jtf;
-	private JButton jb1,jb2,jb3,jb4;
+	private JButton jb1,jb2,jb3,jb4,jb5;
 	//定义一个表
 	private JTable jt;
 	private JScrollPane jsp;
-	private StuModle sm;
+	private static StuModle sm;
 	
+	String record="";
 	
 	public ManagerSystem() {
 		
@@ -66,17 +67,19 @@ public class ManagerSystem extends JFrame implements ActionListener{
 		jb2=new JButton("添加");
 		jb3=new JButton("删除");
 		jb4=new JButton("修改");
+		jb5=new JButton("返回");
 		this.add(jp3,BorderLayout.SOUTH);
 		jp3.setLayout(new FlowLayout());
 		jp3.add(jb2);
 		jp3.add(jb3);
 		jp3.add(jb4);
+		jp3.add(jb5);
 		
 		//添加事件
 		jb1.addActionListener(this);
 		jb2.addActionListener(this);
-		
-		
+		jb3.addActionListener(this);
+		jb5.addActionListener(this);
 		
 		//窗口
 		this.setLocation(300, 400);
@@ -110,16 +113,37 @@ public class ManagerSystem extends JFrame implements ActionListener{
 			//写一个查询的sql语句
 			String sql="select * from stu where stuName='"+name+"'";
 			//生成一个新执行了查询语句的模型表
-			StuModle sm=new StuModle(sql);
+		    sm=new StuModle(sql);
 			//更新加载到jtable的模型
 			jt.setModel(sm);
 			System.out.println(sql);
+			
+			record=sql;
 			
 		}else if(e.getSource()==jb2) {
 			
 			StuAddDialoge sad=new StuAddDialoge(this, "添加学生", true);
 			
+			//更新
+			sm=new StuModle(record);
+			jt.setModel(sm);
 			
+		}else if(e.getSource()==jb3) {
+			
+			String stuId=(String) jt.getValueAt(jt.getSelectedRow(), 0);
+			String sql="DELETE FROM `lxr`.`stu` WHERE (`stuId` = '"+stuId+"')";
+			sm.newStu(sql);
+			sm=new StuModle(record);
+			jt.setModel(sm);
+			
+		}else if(e.getSource()==jb4) {
+			
+			
+			
+		}else if(e.getSource()==jb5) {
+			
+			sm=new StuModle();
+			jt.setModel(sm);
 			
 		}
 		

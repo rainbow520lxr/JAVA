@@ -46,19 +46,50 @@ public class StuModle extends AbstractTableModel{
 	}
 	
 	
-	
-	
-	//根据sql语句添加学生
-	public void addStu(String sql) {
+	//根据sql语句,添加删除修改
+	public void newStu(String sql) {
 		
-		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn=(Connection)DriverManager.getConnection(url,username,passwd);
+			ps=conn.prepareStatement(sql);
+			//rs是一个指针指向第一行，在java语言中rs.next()自动指针移动
+			int rs=ps.executeUpdate();
+			if(rs!=-1) {
+				System.out.println("操作成功!");
+			}
+			
+			}catch (Exception e) {
+				// TODO: handle exception
+			}finally {
+				 
+				try {
+					if(conn!=null)conn.close();
+					if(ps!=null) {ps.close();}
+					if(rs!=null) {rs.close();}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+	
+	}
+	
+	public void delStu() {
 		
 		
 		
 	}
 	
+	public void changeStu() {
+		
+		
+	}
+	
+	
 	//初始化执行sql语句,解决冗余代码
-	public void init(String sql) {
+ 	public void init(String sql) {
 		
 		if(sql.contentEquals("")) {
 			
@@ -156,7 +187,6 @@ public class StuModle extends AbstractTableModel{
 		//需要强转
 		return (String) this.columnName.get(column);
 	}
-	
 	
 	
 }

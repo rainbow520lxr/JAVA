@@ -22,11 +22,19 @@ import javax.swing.JTextField;
 
 public class StuAddDialoge extends JDialog implements ActionListener{
 
+	
+	
+	//定义变量
+	String stuId,stuName,stuSex,stuJg,stuDept;
+	int stuAge;
+	
+	
 	//定义组件
 	JLabel jl[]=new JLabel[6];
 	JButton jb1,jb2;
 	JTextField jtf[]=new JTextField[6];
 	JPanel jp[]=new JPanel[8];
+
 	
 	//自定义对话框
 	//owner 父窗口名
@@ -91,12 +99,29 @@ public class StuAddDialoge extends JDialog implements ActionListener{
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
 		if(e.getSource()==jb1) {
+		//	INSERT INTO `lxr`.`stu` (`stuId`, `stuName`, `stuSex`, `stuAge`, `stuJg`, `stuDept`) VALUES ('09', '李小源', '女', '23', '四川巴中', '人系');
 			
+			stuId=jtf[0].getText();
+			stuName=jtf[1].getText();
+			stuSex=jtf[2].getText();
+			stuAge=Integer.parseInt(jtf[3].getText());
+			stuJg=jtf[4].getText();
+			stuDept=jtf[5].getText();
+			
+			
+			String sql="INSERT INTO `lxr`.`stu` (`stuId`, `stuName`, `stuSex`, `stuAge`, `stuJg`, `stuDept`) VALUES ('"+stuId+"', '"+stuName+"', '"+stuSex+"', '"+stuAge+"', '"+stuJg+"', '"+stuDept+"')";
+			System.out.println(sql);
+			StuModle sm=new StuModle();
+			sm.newStu(sql);
+			this.hide();
 			
 			
 		}else if(e.getSource()==jb2) {

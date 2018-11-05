@@ -35,7 +35,7 @@ public class ManagerSystem extends JFrame implements ActionListener{
 	private JScrollPane jsp;
 	private static StuModle sm;
 	
-	String record="";
+	private String record="";
 	
 	public ManagerSystem() {
 		
@@ -79,10 +79,10 @@ public class ManagerSystem extends JFrame implements ActionListener{
 		jb1.addActionListener(this);
 		jb2.addActionListener(this);
 		jb3.addActionListener(this);
+		jb4.addActionListener(this);
 		jb5.addActionListener(this);
 		
 		//窗口
-		this.setLocation(300, 400);
 		this.setSize(800, 600);
 		this.setTitle("学生管理系统");
 		this.setResizable(false);
@@ -105,6 +105,8 @@ public class ManagerSystem extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		
+		//查询
 		if(e.getSource()==jb1) {
 			
 			System.out.println("进行查询...");
@@ -119,7 +121,8 @@ public class ManagerSystem extends JFrame implements ActionListener{
 			System.out.println(sql);
 			
 			record=sql;
-			
+		
+		//添加
 		}else if(e.getSource()==jb2) {
 			
 			StuAddDialoge sad=new StuAddDialoge(this, "添加学生", true);
@@ -127,16 +130,45 @@ public class ManagerSystem extends JFrame implements ActionListener{
 			//更新
 			sm=new StuModle(record);
 			jt.setModel(sm);
+		
 			
+		//删除
 		}else if(e.getSource()==jb3) {
+			
+			if(jt.getSelectedRow()==-1) {				
+				JOptionPane.showMessageDialog(this, "请选中一行删除！");
+				return;
+			}
 			
 			String stuId=(String) jt.getValueAt(jt.getSelectedRow(), 0);
 			String sql="DELETE FROM `lxr`.`stu` WHERE (`stuId` = '"+stuId+"')";
 			sm.newStu(sql);
 			sm=new StuModle(record);
 			jt.setModel(sm);
+		
 			
+		//修改
 		}else if(e.getSource()==jb4) {
+			
+			
+			if(jt.getSelectedRowCount()!=1) {
+							
+				JOptionPane.showMessageDialog(this, "请选中一行修改！");
+				return;
+				
+			}
+			
+			//将默认数据封装传给子窗口对象
+			String stu[]=new String[6];
+			for(int i=0;i<6;i++) {				
+				stu[i]=  jt.getValueAt(jt.getSelectedRow(), i).toString();
+				System.out.println(stu[i]);
+			}
+			//修改
+			StuDelDialoge sad=new StuDelDialoge(this, "修改学生", true, stu, jt.getSelectedColumn());
+			//更新
+			sm=new StuModle(record);
+			jt.setModel(sm);
 			
 			
 			

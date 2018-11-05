@@ -24,4 +24,30 @@ column.add("第一列")
 rowdata指的是行向量数据的集合，column代表列名向量
 参数是两个向量，一个向量集合，一个向量
 
+设计模式
+主键是不能修改的！
+提示对话框
+
+对于preparedstatement而言，例如增加 
+ps参数柱的方式
+sql=insert into stu values(？，？，？，？，？)
+ps=conn.prepareStatement(sql)
+ps.setString(1,jtf.getText())
+ps.setString(2,jtf.getText())
+ps.setString(3,jtf.getText())
+ps.setString(4,jtf.getText())
+ps.setString(5,jtf.getText())
+ps.setString(6,jtf.getText())
+
+
+
+
+
+
+
+
+
+
+
+
 

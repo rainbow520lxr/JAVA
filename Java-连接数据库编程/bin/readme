@@ -47,6 +47,7 @@ ps.setString(1,jtf.getText())
 字符串数组
 String[] paras={jtf1.getText(),jtf2.getText()}
 
+这里可以对对话框进行传参数，参数为字符数组，然后使用paras.length来进行注入参数；
 
 
 

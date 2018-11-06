@@ -122,6 +122,7 @@ public class ManagerSystem extends JFrame implements ActionListener{
 		    sm=new StuModle();
 			this.jt.setModel(sm);
 
+			
 		//Ìí¼Ó
 		}else if(e.getSource()==jb2) {
 			
@@ -130,6 +131,7 @@ public class ManagerSystem extends JFrame implements ActionListener{
 			sm=new StuModle();
 			jt.setModel(sm);
 				
+			
 		//É¾³ý
 		}else if(e.getSource()==jb3) {
 			

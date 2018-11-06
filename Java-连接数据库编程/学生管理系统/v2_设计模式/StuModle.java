@@ -5,6 +5,12 @@
   public int getColumnCount();
   public Object getValueAt(int row, int column); 
  * 
+ * *********************************
+ * 
+ * ######业务逻辑层
+ * 
+ * 会告诉Dao层处理什么表，执行那个表的SQL语句
+ * 
  * 
  */
 
@@ -16,127 +22,49 @@ import java.sql.*;
 import java.util.Vector;
 
 
+//定义一个模型类实现其中必要的接口方法，将数据模型装到表容器中
 public class StuModle extends AbstractTableModel{
 
+	//定义一个列名向量，行的数据集合向量
+	private static Vector columnName,rowData; 
+	
+	//表初始化
+	
+	
+	//sql更新表语句(添加删除修改)
+	public Boolean upStu(String sql,String[] paras) {
+		
+		//考虑并发性所以要在每次都创建一个新数据库语句接受的连接，不考虑并发性则可以加个static升级为全局变量
+		SqlHelper sh=new SqlHelper();
+		return sh.upExcute(sql, paras);
+		
+	}
 
-	//定义变量
-	private String url="jdbc:mysql://localhost:3306/lxr?userUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT";
-	private String username="root";
-	private String passwd="lixin2008";
-	private Connection conn=null;
-	private PreparedStatement ps=null;
-	private ResultSet rs=null;
-	private Vector columnName,rowData; 
-	
-	
-	
-	
-	//多态性,构造函数
-	//构造函数1,传递sql语句处理，精确查询处理
-	public StuModle(String sql) {
+
+	//查询Stu表(查询的本质就是初始化)
+ 	public void queryStu(String sql, String[] paras) {
 		
-		this.init(sql);
-		
-	}
-	//构造函数2，实现列表的初始化显示
-	public StuModle() {
-		
-		this.init("");
-		
-	}
-	
-	
-	//根据sql语句,添加删除修改
-	public Boolean newStu(String sql) {
-		Boolean flag=true;
-		
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn=(Connection)DriverManager.getConnection(url,username,passwd);
-			ps=conn.prepareStatement(sql);
-				
-			//rs是一个指针指向第一行，在java语言中rs.next()自动指针移动
-			int rs=ps.executeUpdate();
-			if(rs!=-1) {
-				System.out.println("操作成功!");
-				flag=false;
-			}
-			
-			}catch (Exception e) {
-				// TODO: handle exception
-				
-				flag=false;
-				
-				
-			}finally {
-				 
-				try {
-					if(conn!=null)conn.close();
-					if(ps!=null) {ps.close();}
-					if(rs!=null) {rs.close();}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					
-					
-				}
-				
-			}
-	
-		return flag;
-	}
-	
-	public void delStu() {
-		
-		
-		
-	}
-	
-	public void changeStu() {
-		
-		
-	}
-	
-	
-	//初始化执行sql语句,解决冗余代码
- 	public void init(String sql) {
-		
-		if(sql.contentEquals("")) {
-			
-			sql="select * from stu";
-		}
-		
-		
+ 	
+ 		SqlHelper sh=null;
+ 		//设置列名
 		columnName=new Vector();
-		//设置列名
-		columnName.add("学号");
-		columnName.add("姓名");
-		columnName.add("性别");
-		columnName.add("年龄");
-		columnName.add("籍贯");
-		columnName.add("系别");
+		this.columnName.add("学号");
+		this.columnName.add("姓名");
+		this.columnName.add("性别");
+		this.columnName.add("年龄");
+		this.columnName.add("籍贯");
+		this.columnName.add("系别");
 		//添加行
-		rowData=new Vector();
-//		//创建一个行向量
-//		Vector hang=new Vector();
-//		hang.add("001");
-//		hang.add("孙悟空");
-//		hang.add("猴");
-//		hang.add("10000");
-//		hang.add("花果山");
-//		hang.add("无门无派");
-//		//将这行数据加入到rowData中
-//		rowData.add(hang);
-		//初始化这个jtable
-		//加载驱动
+		this.rowData=new Vector();
+
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn=(Connection)DriverManager.getConnection(url,username,passwd);
-			ps=conn.prepareStatement(sql);
-			//rs是一个指针指向第一行，在java语言中rs.next()自动指针移动
-			rs=ps.executeQuery();
 			
-			while(rs.next()) {				
+			//调用查询语句
+			sh=new SqlHelper();
+			ResultSet rs=sh.queryExcute(sql, paras);
+	 		if(rs==null)System.out.println("没有数据!");
+			while(rs.next()) {	
+				
 				//rowData可以存放多行
 				//定义一个向量来装每行的行数据
 				Vector hang=new Vector();
@@ -147,29 +75,21 @@ public class StuModle extends AbstractTableModel{
 				hang.add(rs.getString(5));
 				hang.add(rs.getString(6));
 				//将行添加进去
-				rowData.add(hang);				
+				this.rowData.add(hang);				
 			}
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {			
-			try {	
-				if(conn!=null) {conn.close();}
-				if(ps!=null) {ps.close();}
-				if(rs!=null) {rs.close();}
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		}finally {	
+			//关闭连接
+			sh.close();
 		}		
-		
 		
 		
 	}
 	
 	
-	//实现了tablemodel的接口的方法,而且是在创建对象的时候自动实现该方法与，构造函数很像
+	//实现了tablemodel的接口的方法,而且是在创建模型对象的时候自动实现该方法与，构造函数很像
 	@Override
 	public int getRowCount() {
 		// TODO Auto-generated method stub

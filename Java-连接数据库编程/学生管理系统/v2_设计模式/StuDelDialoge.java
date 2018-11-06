@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -26,8 +27,8 @@ public class StuDelDialoge extends JDialog implements ActionListener{
 	
 	
 	//定义变量
-	private String stuId,stuName,stuSex,stuJg,stuDept;
-	private int stuAge;
+	private String stuId,stuName,stuSex,stuJg,stuDept,stuAge;
+
 	private String prestuId;
 	
 	
@@ -129,22 +130,30 @@ public class StuDelDialoge extends JDialog implements ActionListener{
 			stuId=jtf[0].getText();
 			stuName=jtf[1].getText();
 			stuSex=jtf[2].getText();
-			stuAge=Integer.parseInt(jtf[3].getText());
+			stuAge=jtf[3].getText();
 			stuJg=jtf[4].getText();
 			stuDept=jtf[5].getText();
 			
+			String[] paras= {stuId,stuName,stuSex,stuAge,stuJg,stuDept};
 			
-			String sql="UPDATE `lxr`.`stu` SET `stuId` = '"+stuId+"', `stuName` = '"+stuName+"', `stuSex` = '"+stuSex+"', `stuAge` = '"+stuAge+"', `stuJg` = '"+stuJg+"', `stuDept` = '"+stuDept+"' WHERE (`stuId` = '"+prestuId+"')";
-					
-			System.out.println(sql);
 			StuModle sm=new StuModle();
-			sm.newStu(sql);
-			this.hide();
+			String sql="UPDATE `lxr`.`stu` SET `stuId` = ?, `stuName` = ?, `stuSex` = ?, `stuAge` = ?, `stuJg` = ?, `stuDept` = ? WHERE (`stuId` = ?)";
+			if(!sm.upStu(sql, paras)) {
+				
+				//提示
+				JOptionPane.showMessageDialog(this, "修改失败！");
+			
+			}else if(sm.upStu(sql, paras)) {
+			
+				JOptionPane.showMessageDialog(this, "修改成功！");
+			
+		}
+			this.dispose();
 			
 			
 		}else if(e.getSource()==jb2) {
 			
-			this.hide();
+			this.dispose();
 			
 		}else if(e.getSource()==jb[0]|e.getSource()==jb[1]|e.getSource()==jb[2]|e.getSource()==jb[3]|e.getSource()==jb[4]|e.getSource()==jb[5]) {
 			

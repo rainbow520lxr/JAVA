@@ -35,8 +35,11 @@ public class ManagerSystem extends JFrame implements ActionListener{
 	private JScrollPane jsp;
 	private static StuModle sm;
 	
+	
+	//定义变量
 	private String record="";
 	
+	//构造函数
 	public ManagerSystem() {
 		
 		//设置整体布局
@@ -55,6 +58,7 @@ public class ManagerSystem extends JFrame implements ActionListener{
 		jp1.add(jb1);
 		
 		sm=new StuModle();
+		sm.queryStu("select * from lxr.stu", null);
 		jt=new JTable(sm);
 		jt.getTableHeader().setResizingAllowed(false); 
 		jt.getTableHeader().setReorderingAllowed(false);
@@ -92,7 +96,7 @@ public class ManagerSystem extends JFrame implements ActionListener{
 	}
 	
 	
-	
+	//主函数
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
@@ -101,7 +105,8 @@ public class ManagerSystem extends JFrame implements ActionListener{
 		
 	}
 
-//事件处理
+	
+	//事件处理
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -109,29 +114,22 @@ public class ManagerSystem extends JFrame implements ActionListener{
 		//查询
 		if(e.getSource()==jb1) {
 			
-			System.out.println("进行查询...");
 			//因为把对表的数据封装到了StuModel中，我们就可以比较简单的完成查询
-			String name=this.jtf.getText().trim();//使用trim将前导和空字符删去
-			//写一个查询的sql语句
-			String sql="select * from stu where stuName='"+name+"'";
+			String[] paras= {this.jtf.getText().trim()};//使用trim将前导和空字符删去
 			//生成一个新执行了查询语句的模型表
-		    sm=new StuModle(sql);
+		    sm.queryStu("select * from lxr.stu where stuName=?", paras);
 			//更新加载到jtable的模型
-			jt.setModel(sm);
-			System.out.println(sql);
-			
-			record=sql;
-		
+		    sm=new StuModle();
+			this.jt.setModel(sm);
+
 		//添加
 		}else if(e.getSource()==jb2) {
 			
 			StuAddDialoge sad=new StuAddDialoge(this, "添加学生", true);
-			
 			//更新
-			sm=new StuModle(record);
+			sm=new StuModle();
 			jt.setModel(sm);
-		
-			
+				
 		//删除
 		}else if(e.getSource()==jb3) {
 			
@@ -139,13 +137,13 @@ public class ManagerSystem extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(this, "请选中一行删除！");
 				return;
 			}
-			
 			String stuId=(String) jt.getValueAt(jt.getSelectedRow(), 0);
-			String sql="DELETE FROM `lxr`.`stu` WHERE (`stuId` = '"+stuId+"')";
-			sm.newStu(sql);
-			sm=new StuModle(record);
+			String[] paras= {stuId};
+			sm.upStu("DELETE FROM `lxr`.`stu` WHERE (`stuId` = ?)", paras);
+			sm.queryStu("select * from lxr.stu", null);
+			//更新
+			sm=new StuModle();
 			jt.setModel(sm);
-		
 			
 		//修改
 		}else if(e.getSource()==jb4) {
@@ -167,16 +165,17 @@ public class ManagerSystem extends JFrame implements ActionListener{
 			//修改
 			StuDelDialoge sad=new StuDelDialoge(this, "修改学生", true, stu, jt.getSelectedColumn());
 			//更新
-			sm=new StuModle(record);
+			sm=new StuModle();
 			jt.setModel(sm);
 			
 			
 			
 		}else if(e.getSource()==jb5) {
-			
+
+			sm.queryStu("select * from lxr.stu", null);
+			//更新
 			sm=new StuModle();
 			jt.setModel(sm);
-			
 		}
 		
 		

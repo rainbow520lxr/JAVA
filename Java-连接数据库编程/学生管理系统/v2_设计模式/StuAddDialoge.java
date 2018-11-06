@@ -26,9 +26,8 @@ public class StuAddDialoge extends JDialog implements ActionListener{
 	
 	
 	//定义变量
-	private String stuId,stuName,stuSex,stuJg,stuDept;
-	private int stuAge;
-	
+	private String stuId,stuName,stuSex,stuJg,stuDept,stuAge;
+
 	
 	//定义组件
 	private JLabel jl[]=new JLabel[6];
@@ -113,9 +112,12 @@ public class StuAddDialoge extends JDialog implements ActionListener{
 			stuId=jtf[0].getText();
 			stuName=jtf[1].getText();
 			stuSex=jtf[2].getText();
-			stuAge=Integer.parseInt(jtf[3].getText());
+			stuAge=jtf[3].getText();
 			stuJg=jtf[4].getText();
 			stuDept=jtf[5].getText();
+			
+			String[] paras= {stuId,stuName,stuSex,stuAge,stuJg,stuDept};
+			String sql="INSERT INTO `lxr`.`stu` (`stuId`, `stuName`, `stuSex`, `stuAge`, `stuJg`, `stuDept`) VALUES (？, ？, ？, ？, ？, ？)";
 			
 			System.out.println(stuAge);
 			System.out.println(stuSex);
@@ -123,26 +125,23 @@ public class StuAddDialoge extends JDialog implements ActionListener{
 			Boolean ys1=(stuId!=null&&stuId.length()==2);
 			Boolean ys2=(stuName!=null);
 			Boolean ys3=(stuSex.equals("男")|stuSex.equals("女")|stuSex.equals(""));
-			Boolean ys4=(stuAge<100|stuAge>0|jtf[3].getText()=="");
+
 			
 			if(ys1) {System.out.println("1");}
 			if(ys2) {System.out.println("2");}
 			if(ys3) {System.out.println("3");}
-			if(ys4) {System.out.println("4");}
-			
-			if(ys1&&ys2&&ys3&ys4) {
+		
+			if(ys1&&ys2&&ys3) {
 				System.out.println("执行操作");
-			String sql="INSERT INTO `lxr`.`stu` (`stuId`, `stuName`, `stuSex`, `stuAge`, `stuJg`, `stuDept`) VALUES ('"+stuId+"', '"+stuName+"', '"+stuSex+"', '"+stuAge+"', '"+stuJg+"', '"+stuDept+"')";
-			System.out.println(sql);
-			StuModle sm=new StuModle();
-			if(!sm.newStu(sql)) {
+				StuModle sm=new StuModle();
+				if(!sm.upStu(sql, paras)) {
 				
-				//提示
-				JOptionPane.showMessageDialog(this, "添加失败！");
+					//提示
+					JOptionPane.showMessageDialog(this, "添加失败！");
 				
-			}else if(sm.newStu(sql)) {
+				}else if(sm.upStu(sql, paras)) {
 				
-				JOptionPane.showMessageDialog(this, "添加成功！");
+					JOptionPane.showMessageDialog(this, "添加成功！");
 				
 			}
 			

@@ -1,0 +1,4 @@
+1.Socket注意避免使用readline
+readline和read中，readline需要读入“数据+\n\r"，而在控制台输入数据时
+并不会自动加入\n\r，容易发生堵塞
+2.字符流需要使用flush close清空缓存将数据写入磁盘，或者写入套接字中

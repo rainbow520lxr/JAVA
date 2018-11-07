@@ -1,0 +1,14 @@
+讲讲关于字符流和字节流
+
+带writer和reader的是字符流
+不带的IO流失字节流
+
+字符流可以加载字节流
+例如：outStreamwriter(字节流)inputStreamreader(字节流)
+
+使用方法：怎样将流写入磁盘，怎样将流从磁读出
+字符流自带方法 flush() 清空缓存 close()方法 关闭流
+
+注意事项：readline字符流在读入时要以（字符串+\n\r）为一行，才能获取到信息
+然而在flush()在清空缓存时不会添加\n\r而close会自动添加\n\r
+而read不需要

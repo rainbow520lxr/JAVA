@@ -30,16 +30,34 @@ public class MyClient {
 			
 			System.out.println("连接建立成功！");
 			
+			String out=null;
+			String in=null;
+			
+			
 			while(true) {
-					
 				
-			//	System.out.println("服务端："+br.readLine());
-					
 				//4.发送信息
 				System.out.print("客户端：");
-				bw.write(ubr.readLine()+"\r\n");
+				out=ubr.readLine();
+				bw.write(out+"\r\n");
 				bw.flush();
+				
+				//客户主动结束通讯
+				if(out.equals("bye")) {
+					System.out.println("通话结束");
+					s.close();
+				}
+				
+				//5.接受信息
+				in=br.readLine();
+				System.out.println("服务器："+in);	
 		
+				//客户被动结束通讯
+				if(in.equals("bye")) {
+					System.out.println("通话结束");
+					s.close();
+				}
+				
 			}
 			
 		} catch (UnknownHostException e) {
@@ -50,7 +68,7 @@ public class MyClient {
 			e.printStackTrace();
 		}finally {
 			
-			
+				//关闭
 				try {
 					if(s!=null)s.close();
 				} catch (IOException e) {

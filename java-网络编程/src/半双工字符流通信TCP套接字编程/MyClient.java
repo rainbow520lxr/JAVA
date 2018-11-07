@@ -1,4 +1,4 @@
-package 双工字符流通信TCP套接字编程.copy;
+package 半双工字符流通信TCP套接字编程;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

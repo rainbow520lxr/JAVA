@@ -73,7 +73,7 @@ public class MyClient extends JFrame implements ActionListener,KeyListener{
 		//套接字
 		try {
 			//1.创建数据套接字
-			s=new Socket("192.168.1.103",4000);
+			s=new Socket("127.0.0.1",4000);
 			//2.创建输入流输出流
 			br=new BufferedReader(new InputStreamReader(s.getInputStream()));
 			bw=new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));

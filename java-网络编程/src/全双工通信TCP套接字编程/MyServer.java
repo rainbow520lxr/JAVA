@@ -174,30 +174,4 @@ public class MyServer extends JFrame implements ActionListener,KeyListener{
 		
 	}
 
-
-	out="服务器:"+jtf.getText()+"\r\n";
-	try {
-		bw.write(out);
-		bw.flush();
-	} catch (IOException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}
-	//追加消息
-	out="服务器:"+jtf.getText()+"\r\n";
-	try {
-		bw.write(out);
-		bw.flush();
-	} catch (IOException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}
-	//追加消息
-	jta.append(out);
-	//清空发送框的内容
-	jtf.setText("");
-	jta.append(out);
-	//清空发送框的内容
-	jtf.setText("");
-
 }

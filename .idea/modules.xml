@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Java-IO编程/Java-IO编程.iml" filepath="$PROJECT_DIR$/Java-IO编程/Java-IO编程.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java-可视化编程/Java-可视化编程.iml" filepath="$PROJECT_DIR$/Java-可视化编程/Java-可视化编程.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java-套接字编程/Java-套接字编程.iml" filepath="$PROJECT_DIR$/Java-套接字编程/Java-套接字编程.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Servers/Servers.iml" filepath="$PROJECT_DIR$/Servers/Servers.iml" />
+      <module fileurl="file://$PROJECT_DIR$/crud/crud.iml" filepath="$PROJECT_DIR$/crud/crud.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java-网络编程/java-网络编程.iml" filepath="$PROJECT_DIR$/java-网络编程/java-网络编程.iml" />
+      <module fileurl="file://$PROJECT_DIR$/web/web.iml" filepath="$PROJECT_DIR$/web/web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/算法作业/算法作业.iml" filepath="$PROJECT_DIR$/算法作业/算法作业.iml" />
+    </modules>
+  </component>
+</project>

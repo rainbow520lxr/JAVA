@@ -1,0 +1,52 @@
+Annotation 是从JDK5.0开始的
+
+功能1.注解不是程序本省，可以对程序作出解释。   和注释一样
+功能2.可以被其他程序（比如：编译器等）读取。   注解信息的处理流程，是注解和注释的巨大区别。如果没有注解信息处理流程，则注解毫无意义
+
+注解
+    1.内置注解
+    @Override
+    定义在java.lang.Override中，此注释只使用于修辞方法，表示一个方法声明打算重写超类中的另一个方法声明
+    @Deprecated
+    定义在java.lang.Deprecated中，此注释可用于修辞方法、属性、类，表示不鼓励程序员使用这样的元素，
+    通常因为它很危险或存在更好的选择
+    @SuppressWarning  /  @SuppressWarning()
+    定义在java.lang.SuppressWarnings
+    参数1：deprecation   用来抑制编译时的警告信息
+    参数2：unchecked   执行了未检查的转换时警告
+    参数2：fallthrough  当在switch语句使用时发生了case穿透
+    参数3：path   在类路径、源文件路径等中有不存在路径的警告
+    参数4：serial  当在序列化的类上缺少serialVersionUID定义时的警告
+    参数5：all  关于以上所有情况的警告
+
+    2.自定义注解
+    自定义注解时要加入元注解
+
+    3.元注解
+    对注解作出解释
+    @Target
+    作用：
+        用于描述注解的使用范围（即：被描述的注解可以用在什么地方）
+        修饰范围   包，类、接口、枚举、Annotation类型，类型成员（方法、构造方法、成员变量、枚举值），方法参数和本地变量
+        对应的值ElementType分别为  PACKAGE , TYPE,  CONSTRUCTOR(用于描述构造器）、FIELD（用于描述域）、METHOD(用于描述方法）
+        ,LOCAL_VARIABLE(用于描述局部变量），PARAMETER(用于描述参数）
+    例子：@Target（value=ElementType.TYPE)
+    @Retention
+    作用：
+        表示需要在什么级别保存该注释信息，用于描述注解的生命周期
+        取值RetentionPolicy    作用
+        SOURCE                  在源文件中有效（即源文件保留）
+        CLASS                   在class文件中有效(即class保留）
+        RUNTIME                 在运行时有效（即运行时保留）为Runtime可以被反射机制读取
+     
+
+
+
+        
+        
+        
+
+
+
+
+
